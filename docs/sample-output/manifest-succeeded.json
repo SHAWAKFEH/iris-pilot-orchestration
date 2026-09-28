@@ -1,0 +1,337 @@
+{
+  "manifest_version": 1,
+  "run_id": "20260928T113804Z-245312",
+  "status": "succeeded",
+  "exit_code": 0,
+  "started_at": "2026-09-28T11:38:04.034Z",
+  "finished_at": "2026-09-28T11:38:04.226Z",
+  "duration_ms": 192,
+  "summary": {
+    "succeeded": 7,
+    "failed": 0,
+    "skipped": 0,
+    "warnings": 2
+  },
+  "stages": [
+    {
+      "name": "check_prerequisites",
+      "description": "database, PostGIS, migrations, input data, output dir, single-run lock",
+      "critical": true,
+      "depends_on": [],
+      "status": "succeeded",
+      "started_at": "2026-09-28T11:38:04.034Z",
+      "finished_at": "2026-09-28T11:38:04.096Z",
+      "duration_ms": 62,
+      "counts": {
+        "checks_passed": 8
+      },
+      "details": {
+        "checks": [
+          {
+            "check": "database_connection",
+            "ok": true,
+            "detail": "postgresql://iris:***@localhost:5433/iris"
+          },
+          {
+            "check": "single_run_lock",
+            "ok": true,
+            "detail": "acquired"
+          },
+          {
+            "check": "postgresql_version",
+            "ok": true,
+            "detail": "16.15 (need >= 16)"
+          },
+          {
+            "check": "postgis_version",
+            "ok": true,
+            "detail": "3.4.2 (need >= 3.4)"
+          },
+          {
+            "check": "migrations_applied",
+            "ok": true,
+            "detail": "all applied"
+          },
+          {
+            "check": "input_bess",
+            "ok": true,
+            "detail": "6 accepted row(s) in staging.bess_site_candidate"
+          },
+          {
+            "check": "input_peatland",
+            "ok": true,
+            "detail": "4 accepted row(s) in staging.peatland_parcel_candidate"
+          },
+          {
+            "check": "output_dir_writable",
+            "ok": true,
+            "detail": "out"
+          }
+        ]
+      },
+      "warnings": [],
+      "error": null,
+      "skip_reason": null
+    },
+    {
+      "name": "promote_bess",
+      "description": "promote accepted staging.bess_site_candidate rows into core.bess_site",
+      "critical": true,
+      "depends_on": [
+        "check_prerequisites"
+      ],
+      "status": "succeeded",
+      "started_at": "2026-09-28T11:38:04.097Z",
+      "finished_at": "2026-09-28T11:38:04.119Z",
+      "duration_ms": 23,
+      "counts": {
+        "accepted": 6,
+        "inserted": 4,
+        "updated": 0,
+        "unchanged": 0,
+        "rejected": 2
+      },
+      "details": {
+        "dataset": "bess_site",
+        "dataset_version": 1,
+        "version_bumped": true,
+        "rejected_rows": [
+          {
+            "country_code": "DE",
+            "source_id": "BESS-006",
+            "reason": "missing geometry"
+          },
+          {
+            "country_code": "DE",
+            "source_id": "BESS-007",
+            "reason": "invalid geometry: Self-intersection[10.2405 47.8705]"
+          }
+        ]
+      },
+      "warnings": [
+        "DE/BESS-006 accepted in staging but not promoted: missing geometry",
+        "DE/BESS-007 accepted in staging but not promoted: invalid geometry: Self-intersection[10.2405 47.8705]"
+      ],
+      "error": null,
+      "skip_reason": null
+    },
+    {
+      "name": "promote_peatland",
+      "description": "promote accepted staging.peatland_parcel_candidate rows into core.peatland_parcel",
+      "critical": true,
+      "depends_on": [
+        "check_prerequisites"
+      ],
+      "status": "succeeded",
+      "started_at": "2026-09-28T11:38:04.119Z",
+      "finished_at": "2026-09-28T11:38:04.123Z",
+      "duration_ms": 4,
+      "counts": {
+        "accepted": 4,
+        "inserted": 4,
+        "updated": 0,
+        "unchanged": 0,
+        "rejected": 0
+      },
+      "details": {
+        "dataset": "peatland_parcel",
+        "dataset_version": 1,
+        "version_bumped": true,
+        "rejected_rows": []
+      },
+      "warnings": [],
+      "error": null,
+      "skip_reason": null
+    },
+    {
+      "name": "refresh_bess_view",
+      "description": "refresh core.mv_bess_candidates and record its source version",
+      "critical": true,
+      "depends_on": [
+        "promote_bess"
+      ],
+      "status": "succeeded",
+      "started_at": "2026-09-28T11:38:04.123Z",
+      "finished_at": "2026-09-28T11:38:04.148Z",
+      "duration_ms": 25,
+      "counts": {
+        "rows": 4,
+        "pass": 2,
+        "review": 1,
+        "insufficient_data": 1
+      },
+      "details": {
+        "view": "core.mv_bess_candidates",
+        "source_version": 1,
+        "by_country": {
+          "AT": {
+            "rows": 1,
+            "pass": 1,
+            "review": 0,
+            "insufficient_data": 0
+          },
+          "DE": {
+            "rows": 3,
+            "pass": 1,
+            "review": 1,
+            "insufficient_data": 1
+          }
+        }
+      },
+      "warnings": [],
+      "error": null,
+      "skip_reason": null
+    },
+    {
+      "name": "refresh_peatland_view",
+      "description": "refresh core.mv_peatland_candidates and record its source version",
+      "critical": true,
+      "depends_on": [
+        "promote_peatland"
+      ],
+      "status": "succeeded",
+      "started_at": "2026-09-28T11:38:04.148Z",
+      "finished_at": "2026-09-28T11:38:04.162Z",
+      "duration_ms": 14,
+      "counts": {
+        "rows": 4,
+        "pass": 1,
+        "review": 2,
+        "insufficient_data": 1
+      },
+      "details": {
+        "view": "core.mv_peatland_candidates",
+        "source_version": 1,
+        "by_country": {
+          "AT": {
+            "rows": 1,
+            "pass": 0,
+            "review": 1,
+            "insufficient_data": 0
+          },
+          "DE": {
+            "rows": 3,
+            "pass": 1,
+            "review": 1,
+            "insufficient_data": 1
+          }
+        }
+      },
+      "warnings": [],
+      "error": null,
+      "skip_reason": null
+    },
+    {
+      "name": "export_bess_dossiers",
+      "description": "export sample bess dossiers atomically",
+      "critical": true,
+      "depends_on": [
+        "refresh_bess_view"
+      ],
+      "status": "succeeded",
+      "started_at": "2026-09-28T11:38:04.162Z",
+      "finished_at": "2026-09-28T11:38:04.183Z",
+      "duration_ms": 21,
+      "counts": {
+        "dossiers": 4,
+        "countries": 2
+      },
+      "details": {
+        "output_dir": "out\\dossiers\\bess",
+        "source_version": 1,
+        "files": [
+          "AT/BESS-001.md",
+          "DE/BESS-001.md",
+          "DE/BESS-002.md",
+          "DE/BESS-003.md"
+        ]
+      },
+      "warnings": [],
+      "error": null,
+      "skip_reason": null
+    },
+    {
+      "name": "export_peatland_dossiers",
+      "description": "export sample peatland dossiers atomically",
+      "critical": true,
+      "depends_on": [
+        "refresh_peatland_view"
+      ],
+      "status": "succeeded",
+      "started_at": "2026-09-28T11:38:04.183Z",
+      "finished_at": "2026-09-28T11:38:04.201Z",
+      "duration_ms": 18,
+      "counts": {
+        "dossiers": 4,
+        "countries": 2
+      },
+      "details": {
+        "output_dir": "out\\dossiers\\peatland",
+        "source_version": 1,
+        "files": [
+          "AT/PEAT-001.md",
+          "DE/PEAT-001.md",
+          "DE/PEAT-002.md",
+          "DE/PEAT-003.md"
+        ]
+      },
+      "warnings": [],
+      "error": null,
+      "skip_reason": null
+    }
+  ],
+  "freshness": {
+    "all_fresh": true,
+    "verticals": {
+      "bess": {
+        "dataset": "bess_site",
+        "dataset_version": 1,
+        "data_changed_at": "2026-09-28T13:38:04.097176+02:00",
+        "view": {
+          "name": "core.mv_bess_candidates",
+          "status": "fresh",
+          "source_version": 1,
+          "refreshed_at": "2026-09-28T13:38:04.123722+02:00",
+          "rows": 4
+        },
+        "export": {
+          "path": "out\\dossiers\\bess",
+          "status": "fresh",
+          "source_version": 1,
+          "exported_at": "2026-09-28T11:38:04.180Z",
+          "run_id": "20260928T113804Z-245312",
+          "dossiers": 4
+        }
+      },
+      "peatland": {
+        "dataset": "peatland_parcel",
+        "dataset_version": 1,
+        "data_changed_at": "2026-09-28T13:38:04.119839+02:00",
+        "view": {
+          "name": "core.mv_peatland_candidates",
+          "status": "fresh",
+          "source_version": 1,
+          "refreshed_at": "2026-09-28T13:38:04.148381+02:00",
+          "rows": 4
+        },
+        "export": {
+          "path": "out\\dossiers\\peatland",
+          "status": "fresh",
+          "source_version": 1,
+          "exported_at": "2026-09-28T11:38:04.199Z",
+          "run_id": "20260928T113804Z-245312",
+          "dossiers": 4
+        }
+      }
+    }
+  },
+  "metadata": {
+    "command": "iris-pilot run",
+    "iris_pilot_version": "0.1.0",
+    "python": "3.13.3",
+    "database": "postgresql://iris:***@localhost:5433/iris",
+    "output_dir": "out",
+    "sample_size_per_country": 3,
+    "fault_injection": []
+  }
+}

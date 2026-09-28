@@ -1,0 +1,6 @@
+country_code,source_id,parcel_name,peat_depth_m,land_use,source_name,source_date,review_status,geom_wkt
+DE,PEAT-001,Grönenbacher Moos West,1.20,grassland,IRIS synthetic fixture v1,2026-06-30,accepted,"MULTIPOLYGON(((10.2100 47.8700,10.2140 47.8700,10.2140 47.8730,10.2100 47.8730,10.2100 47.8700)))"
+DE,PEAT-002,Hitzenhofer Ried,0.20,arable,IRIS synthetic fixture v1,2026-06-30,accepted,"MULTIPOLYGON(((10.2500 47.8800,10.2520 47.8800,10.2520 47.8815,10.2500 47.8815,10.2500 47.8800)))"
+DE,PEAT-003,Waldmoos,,forest,IRIS synthetic fixture v1,2026-06-30,accepted,"MULTIPOLYGON(((10.1900 47.8600,10.1925 47.8600,10.1925 47.8620,10.1900 47.8620,10.1900 47.8600)))"
+DE,PEAT-004,Eschacher Weiher,0.90,grassland,IRIS synthetic fixture v1,2026-06-30,pending,"MULTIPOLYGON(((10.2700 47.8900,10.2720 47.8900,10.2720 47.8912,10.2700 47.8912,10.2700 47.8900)))"
+AT,PEAT-001,Krumbacher Moor,0.80,wetland,IRIS synthetic fixture v1,2026-06-30,accepted,"MULTIPOLYGON(((9.8700 47.4700,9.8730 47.4700,9.8730 47.4720,9.8700 47.4720,9.8700 47.4700)))"

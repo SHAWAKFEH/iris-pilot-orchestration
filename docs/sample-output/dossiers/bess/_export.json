@@ -1,0 +1,39 @@
+{
+  "vertical": "bess",
+  "view": "core.mv_bess_candidates",
+  "dataset": "bess_site",
+  "source_version": 1,
+  "sample_size_per_country": 3,
+  "run_id": "20260928T113804Z-245312",
+  "exported_at": "2026-09-28T11:38:04.180Z",
+  "files": [
+    {
+      "path": "AT/BESS-001.md",
+      "country_code": "AT",
+      "id": "BESS-001",
+      "screening_status": "pass",
+      "sha256": "4bc3a5f8c9ffef127d52fcfd87f173eb6cfe3d3760e146a2662357f6b294f803"
+    },
+    {
+      "path": "DE/BESS-001.md",
+      "country_code": "DE",
+      "id": "BESS-001",
+      "screening_status": "pass",
+      "sha256": "ca8dbfa4e79f2f508bc76fe0156e224e7b1d55f30ac9849f0068400063a0d6d3"
+    },
+    {
+      "path": "DE/BESS-002.md",
+      "country_code": "DE",
+      "id": "BESS-002",
+      "screening_status": "review",
+      "sha256": "4dffda7021d49213129155c082abfcbc819a53d3fa3f47673f8aaa780ab1273a"
+    },
+    {
+      "path": "DE/BESS-003.md",
+      "country_code": "DE",
+      "id": "BESS-003",
+      "screening_status": "insufficient_data",
+      "sha256": "d23c7de74781a9aa3193f87c4653bebd3254c868ff21eee03fed65d1dbe33580"
+    }
+  ]
+}

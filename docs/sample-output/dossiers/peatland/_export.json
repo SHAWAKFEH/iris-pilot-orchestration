@@ -1,0 +1,39 @@
+{
+  "vertical": "peatland",
+  "view": "core.mv_peatland_candidates",
+  "dataset": "peatland_parcel",
+  "source_version": 1,
+  "sample_size_per_country": 3,
+  "run_id": "20260928T113804Z-245312",
+  "exported_at": "2026-09-28T11:38:04.199Z",
+  "files": [
+    {
+      "path": "AT/PEAT-001.md",
+      "country_code": "AT",
+      "id": "PEAT-001",
+      "screening_status": "review",
+      "sha256": "de8560ec8baacb128a7a1c0c829b4377d10462efe1ff68585270176b9653d71b"
+    },
+    {
+      "path": "DE/PEAT-001.md",
+      "country_code": "DE",
+      "id": "PEAT-001",
+      "screening_status": "pass",
+      "sha256": "14e05f5a4f78c883a88f1a5a8a12641937319bdb0090583cc70f7cb5a318a620"
+    },
+    {
+      "path": "DE/PEAT-002.md",
+      "country_code": "DE",
+      "id": "PEAT-002",
+      "screening_status": "review",
+      "sha256": "fddd88d2fb2c65b5dbdfaac4d14e683e19510eb5fda89b4b385cc07b97b6b253"
+    },
+    {
+      "path": "DE/PEAT-003.md",
+      "country_code": "DE",
+      "id": "PEAT-003",
+      "screening_status": "insufficient_data",
+      "sha256": "b75fb077004e0f86836d06d9191d14af290b424fa8b2edd855088943c5c79845"
+    }
+  ]
+}
